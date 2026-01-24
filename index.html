@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl AI - From Buzzword to Workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #e5e5e5;
+            font-family: "Inter", sans-serif;
+            letter-spacing: -0.01em;
+            overflow-x: hidden;
+        }
+
+        /* Technical Grid */
+        .technical-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, transparent 5%, black 40%, black 70%, transparent 95%);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            width: 32px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .toggle-switch::after {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .toggle-switch.active {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+        .toggle-switch.active::after {
+            transform: translateX(14px);
+            background: #34d399;
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+        }
+
+        /* Animations */
+        @keyframes animationIn {
+            0% { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+
+        .animate-on-scroll { animation-play-state: paused !important; }
+        .animate-on-scroll.animate { animation-play-state: running !important; }
+
+        /* Noise Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: overlay;
+        }
+
+        /* Spotlight Effect */
+        .spotlight-grid { --mouse-x: -1000px; --mouse-y: -1000px; }
+        .spotlight-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
+        .spotlight-grid:hover .spotlight-card::after { opacity: 1; }
+
+        /* Marquee */
+        .marquee-wrapper { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+        .marquee-content {
+            display: flex;
+            gap: 4rem;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Magnetic Button */
+        .magnetic-btn { transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+        /* Glitch Effect */
+        .glitch-hover:hover .glitch-target { animation: glitch-anim 0.3s infinite; }
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Shiny CTA Button */
+        @property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+        @property --gradient-angle-offset { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+        @property --gradient-percent { syntax: "<percentage>"; initial-value: 20%; inherits: false; }
+        @property --gradient-shine { syntax: "<color>"; initial-value: #10b981; inherits: false; }
+
+        .shiny-cta {
+            --gradient-angle: 0deg;
+            --gradient-angle-offset: 0deg;
+            --gradient-percent: 20%;
+            --gradient-shine: #10b981;
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+            padding: 1rem 2.5rem;
+            font-family: inherit;
+            font-size: 0.75rem;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: linear-gradient(#000000, #000000) padding-box,
+                        conic-gradient(from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+                        transparent 0%, #065f46 5%, var(--gradient-shine) 15%, #065f46 30%, transparent 40%, transparent 100%) border-box;
+            border: 1px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+            outline: none;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            isolation: isolate;
+            z-index: 0;
+            animation: border-spin 3s linear infinite;
+        }
+        @keyframes border-spin { to { --gradient-angle: 360deg; } }
+        .shiny-cta:hover {
+            --gradient-shine: #34d399;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+
+        /* Pricing Card Gradient */
+        .pricing-highlight {
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 40%),
+                        linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        }
+
+        /* Wall Section */
+        .wall-container { perspective: 2000px; transform-style: preserve-3d; }
+        .wall-grid {
+            transform: rotateY(-18deg) rotateX(10deg) rotateZ(-2deg) scale(1.1);
+            transform-style: preserve-3d;
+        }
+        .wall-column { will-change: transform; }
+        .wall-column-up { animation: scrollUp 40s linear infinite; }
+        .wall-column-down { animation: scrollDown 40s linear infinite; }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        @keyframes scrollDown {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+        .wall-card {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255,255,255,0.02);
+            transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+        }
+        .wall-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(30, 30, 30, 0.8);
+            transform: translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("animate");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+            document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+
+            // Spotlight Logic
+            document.querySelectorAll(".spotlight-grid").forEach((grid) => {
+                grid.addEventListener("mousemove", (e) => {
+                    const rect = grid.getBoundingClientRect();
+                    grid.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                    grid.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                });
+            });
+
+            // Scramble Text
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+            document.querySelectorAll("[data-scramble]").forEach((el) => {
+                el.setAttribute("data-original", el.innerText);
+                el.addEventListener("mouseenter", () => {
+                    let iter = 0;
+                    const original = el.getAttribute("data-original");
+                    const interval = setInterval(() => {
+                        el.innerText = original.split("").map((l, i) => {
+                            if (i < iter) return original[i];
+                            return chars[Math.floor(Math.random() * chars.length)];
+                        }).join("");
+                        if (iter >= original.length) clearInterval(interval);
+                        iter += 1 / 3;
+                    }, 30);
+                    el.dataset.interval = interval;
+                });
+                el.addEventListener("mouseleave", () => {
+                    clearInterval(el.dataset.interval);
+                    el.innerText = el.getAttribute("data-original");
+                });
+            });
+
+            // Magnetic Buttons
+            document.querySelectorAll(".magnetic-btn").forEach((btn) => {
+                btn.addEventListener("mousemove", (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                });
+                btn.addEventListener("mouseleave", () => {
+                    btn.style.transform = "translate(0px, 0px)";
+                });
+            });
+        });
+    </script>
+</head>
+<body class="relative min-h-screen selection:bg-white selection:text-black pt-32">
+
+    <!-- Hero Video Background -->
+    <div class="fixed inset-0 -z-30 w-full h-full overflow-hidden pointer-events-none">
+        <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-20 mix-blend-screen" style="filter: hue-rotate(150deg) contrast(1.2);">
+            <source src="https://cdn.coverr.co/videos/coverr-digital-lines-moving-background-4770/1080p.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black"></div>
+    </div>
+
+    <!-- Aura Background -->
+    <div class="absolute top-0 w-full h-[1200px] mix-blend-screen -z-20 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent);">
+        <div class="absolute top-40 left-1/4 w-[600px] h-[600px] bg-emerald-600/20 rounded-full blur-[150px]"></div>
+        <div class="absolute top-60 right-1/4 w-[500px] h-[500px] bg-cyan-600/15 rounded-full blur-[120px]"></div>
+    </div>
+
+    <!-- Technical Grid Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-0 technical-grid opacity-30"></div>
+
+    <!-- Vertical Structure Lines -->
+    <div class="fixed inset-0 pointer-events-none z-0 max-w-[1400px] mx-auto border-x border-white/[0.04]">
+        <div class="absolute left-1/4 h-full w-px bg-white/[0.02]"></div>
+        <div class="absolute left-2/4 h-full w-px bg-white/[0.02]"></div>
+        <div class="absolute left-3/4 h-full w-px bg-white/[0.02]"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed z-50 flex w-full top-6 px-6 justify-center">
+        <nav class="flex w-full max-w-[1400px] mx-auto items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center">
+                    <span class="text-black text-xs font-bold">AI</span>
+                </div>
+                <span class="text-sm font-semibold tracking-tight text-white">
+                    Ctrl AI
+                </span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-1 backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-full p-1.5 pr-2 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <a href="#" class="px-5 py-2 rounded-full bg-white text-black text-[11px] font-semibold tracking-wide hover:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all">Overview</a>
+                <a href="#workshops" class="px-5 py-2 rounded-full text-neutral-400 hover:text-white hover:bg-white/5 text-[11px] font-medium transition-all tracking-wide">Workshops</a>
+                <a href="#method" class="px-5 py-2 rounded-full text-neutral-400 hover:text-white hover:bg-white/5 text-[11px] font-medium transition-all tracking-wide">Method</a>
+                <a href="#contact" class="px-5 py-2 rounded-full text-neutral-400 hover:text-white hover:bg-white/5 text-[11px] font-medium transition-all tracking-wide">Contact</a>
+            </div>
+
+            <button class="flex items-center gap-2 text-[11px] font-medium text-white uppercase tracking-wider hover:opacity-70 transition-opacity md:hidden">
+                Menu <span class="text-neutral-500">+</span>
+            </button>
+        </nav>
+    </div>
+
+    <main class="z-10 relative">
+
+        <!-- Hero Section -->
+        <section class="max-w-[1400px] mx-auto px-6 pb-40 pt-20 border-b border-white/5">
+            <div class="max-w-5xl">
+                <div class="inline-flex items-center gap-3 px-3 py-1.5 mb-10 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+                    <div class="flex items-center gap-2 px-1">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest" data-scramble="true">Now Booking Q1 2026</span>
+                    </div>
+                    <div class="h-3 w-px bg-white/10"></div>
+                    <span class="text-[10px] text-neutral-400 font-mono">15+ Teams Trained</span>
+                </div>
+
+                <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-6xl md:text-8xl lg:text-[7rem] font-medium tracking-tighter text-white leading-[0.9] mb-12">
+                    From Buzzword<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-600">to Workflow.</span>
+                </h1>
+
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+                    <p class="text-lg text-neutral-400 max-w-xl leading-relaxed font-light">
+                        We train design teams to actually use AI—not just talk about it. 
+                        Hands-on workshops that transform your team from AI-curious to AI-native.
+                    </p>
+
+                    <div class="flex items-center gap-6">
+                        <button class="group relative px-8 py-4 bg-white text-black text-xs font-bold tracking-widest uppercase overflow-hidden hover:bg-neutral-200 transition-all duration-300 magnetic-btn">
+                            <span class="relative z-10 flex items-center gap-2">
+                                Book a Workshop
+                                <iconify-icon icon="ph:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </span>
+                            <div class="absolute inset-0 bg-neutral-100 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mix-blend-difference"></div>
+                        </button>
+                        <div class="h-px w-12 bg-white/20"></div>
+                        <span class="text-[10px] font-mono text-neutral-500">SCROLL TO EXPLORE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo Strip -->
+        <div class="border-b border-white/5 bg-black py-6">
+            <div class="max-w-[1400px] mx-auto overflow-hidden marquee-wrapper">
+                <div class="marquee-content opacity-40 grayscale hover:grayscale-0 hover:opacity-80 transition-all duration-700 items-center py-4">
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Rubrik</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Cato Networks</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Cellebrite</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">WSC Sports</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Lightricks</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Natural Intelligence</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Remitly</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Guidde</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Balance</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Optibus</span>
+                    <!-- Duplicates for seamless loop -->
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Rubrik</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Cato Networks</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Cellebrite</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">WSC Sports</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Lightricks</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Natural Intelligence</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Remitly</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Guidde</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Balance</span>
+                    <span class="text-sm font-medium text-white whitespace-nowrap">Optibus</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Impact Stats -->
+        <section class="border-b border-white/5 bg-black">
+            <div class="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4">
+                <div class="p-8 md:p-12 border-r border-white/5 group hover:bg-white/[0.02] transition-colors">
+                    <div class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-2">15+</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-wider">Teams Trained</div>
+                </div>
+                <div class="p-8 md:p-12 border-r border-white/5 group hover:bg-white/[0.02] transition-colors">
+                    <div class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-2">500+</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-wider">Designers Skilled</div>
+                </div>
+                <div class="p-8 md:p-12 border-r border-white/5 group hover:bg-white/[0.02] transition-colors">
+                    <div class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-2">40%</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-wider">Avg. Time Saved</div>
+                </div>
+                <div class="p-8 md:p-12 group hover:bg-white/[0.02] transition-colors">
+                    <div class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-2">7</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-wider">Conferences Hosted</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Workshop (Large Card) -->
+        <section id="workshops" class="border-b border-white/5 bg-black relative">
+            <div class="max-w-[1400px] mx-auto">
+                <!-- Section Header -->
+                <div class="grid grid-cols-1 md:grid-cols-4 border-b border-white/5">
+                    <div class="p-6 md:p-10 border-r border-white/5 flex flex-col justify-between h-full">
+                        <div class="text-[10px] font-mono text-neutral-500 uppercase mb-2">01 — Flagship Workshop</div>
+                        <h2 class="text-2xl text-white font-medium tracking-tight">AI for Design Teams</h2>
+                    </div>
+                    <div class="md:col-span-3 p-6 md:p-10 flex items-center">
+                        <p class="text-sm text-neutral-500 max-w-lg">
+                            The comprehensive workshop that transforms your entire design organization into AI-native operators.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Featured Workshop Large Card -->
+                <div class="group relative border-b border-white/5 overflow-hidden">
+                    <div class="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/40 transition-colors duration-700"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 h-[600px]">
+                        <!-- Visual Side -->
+                        <div class="relative h-full border-r border-white/5 overflow-hidden">
+                            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+                            <!-- Floating UI Element -->
+                            <div class="absolute bottom-12 left-12 right-12 group-hover:translate-y-[-10px] group-hover:translate-x-[5px] transition-transform duration-700">
+                                <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded p-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <div class="flex gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                                            <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                                            <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+                                        </div>
+                                        <div class="text-[10px] font-mono text-neutral-500">Figma_AI_Session.fig</div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="h-1.5 bg-emerald-500/30 rounded w-3/4"></div>
+                                        <div class="h-1.5 bg-white/10 rounded w-1/2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Side -->
+                        <div class="p-12 flex flex-col justify-between relative bg-black">
+                            <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <iconify-icon icon="ph:arrow-up-right-light" width="32" class="text-white"></iconify-icon>
+                            </div>
+
+                            <div>
+                                <div class="flex gap-2 mb-6">
+                                    <span class="px-2 py-1 border border-emerald-500/30 bg-emerald-500/10 text-[10px] font-mono text-emerald-400 uppercase">2-Day Workshop</span>
+                                    <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-neutral-400 uppercase">Most Popular</span>
+                                </div>
+                                <h3 class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-4">
+                                    Transform Your<br>Design Org
+                                </h3>
+                                <p class="text-neutral-500 max-w-sm leading-relaxed">
+                                    From Figma Make to Claude integration, we build the muscle memory your team needs 
+                                    to ship 40% faster with AI-native workflows.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8 mt-12">
+                                <div>
+                                    <div class="text-[10px] text-neutral-600 uppercase mb-1">Tools Covered</div>
+                                    <div class="text-sm text-white font-mono">5+ AI Tools</div>
+                                    <div class="text-xs text-neutral-500">Figma, Claude, Cursor...</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-neutral-600 uppercase mb-1">Format</div>
+                                    <div class="text-sm text-white font-mono">Hands-On</div>
+                                    <div class="text-xs text-neutral-500">On-site or Remote</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- More Workshops Grid -->
+        <section class="border-b border-white/5 bg-black py-20 relative">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="text-[10px] font-mono text-neutral-500 uppercase mb-12">02 — Specialized Programs</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Workshop Card 1 -->
+                    <div class="group border border-white/10 p-10 bg-neutral-900/10 hover:bg-neutral-900/30 transition-all duration-500 relative overflow-hidden spotlight-card spotlight-grid">
+                        <div class="absolute top-0 right-0 p-4">
+                            <iconify-icon icon="ph:code-light" width="32" class="text-white opacity-20 group-hover:opacity-100 transition-opacity"></iconify-icon>
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-medium text-white mb-2">Design to Code</h3>
+                            <p class="text-sm text-neutral-500">Bridge the gap between design and development.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-y-4 mb-8">
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-purple-400 rounded-full"></div>
+                                Cursor IDE Mastery
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-purple-400 rounded-full"></div>
+                                Figma to React/HTML
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-purple-400 rounded-full"></div>
+                                Claude Skills
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-purple-400 rounded-full"></div>
+                                Production Workflows
+                            </div>
+                        </div>
+                        <button class="w-full py-4 border border-white/10 text-xs font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-colors">Learn More</button>
+                    </div>
+
+                    <!-- Workshop Card 2 -->
+                    <div class="group border border-white/10 p-10 bg-neutral-900/10 hover:bg-neutral-900/30 transition-all duration-500 relative overflow-hidden spotlight-card spotlight-grid">
+                        <div class="absolute top-0 right-0 p-4">
+                            <iconify-icon icon="ph:paint-brush-light" width="32" class="text-white opacity-20 group-hover:opacity-100 transition-opacity"></iconify-icon>
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-medium text-white mb-2">Brand Language Setup</h3>
+                            <p class="text-sm text-neutral-500">Configure AI to speak your brand's visual language.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-y-4 mb-8">
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-blue-400 rounded-full"></div>
+                                AI-Ready Design System
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-blue-400 rounded-full"></div>
+                                Custom Prompt Libraries
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-blue-400 rounded-full"></div>
+                                Figma Make Guidelines
+                            </div>
+                            <div class="text-sm text-neutral-300 flex items-center gap-2">
+                                <div class="w-1 h-1 bg-blue-400 rounded-full"></div>
+                                Brand Consistency
+                            </div>
+                        </div>
+                        <button class="w-full py-4 border border-white/10 text-xs font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-colors">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Stack / Wall Section -->
+        <section class="relative bg-black border-b border-white/5 overflow-hidden">
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-900/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+            <div class="max-w-[1400px] mx-auto relative z-10 flex flex-col md:flex-row min-h-[900px]">
+                <div class="w-full md:w-[40%] px-6 py-20 md:py-32 flex flex-col justify-center relative z-20 bg-gradient-to-r from-black via-black to-transparent">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-white/10 rounded-full bg-white/5 self-start">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
+                        <span class="text-[10px] font-mono text-cyan-300 uppercase tracking-widest">The Stack</span>
+                    </div>
+                    
+                    <h2 class="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-8 leading-[0.9]">
+                        Tools We<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-200 to-neutral-500">Master.</span>
+                    </h2>
+                    
+                    <div class="space-y-8 max-w-sm">
+                        <p class="text-neutral-400 text-lg font-light leading-relaxed">
+                            We don't teach theory. We train on the exact tools your team will use every day. 
+                            Each workshop is customized to your stack.
+                        </p>
+
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-4 group cursor-pointer">
+                                <div class="w-10 h-10 rounded border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/20 transition-all">
+                                    <iconify-icon icon="simple-icons:figma" class="text-[#F24E1E]"></iconify-icon>
+                                </div>
+                                <div>
+                                    <div class="text-white text-sm font-medium">Figma + Make</div>
+                                    <div class="text-[10px] text-neutral-500 font-mono uppercase">AI-Powered Design</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 group cursor-pointer">
+                                <div class="w-10 h-10 rounded border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/20 transition-all">
+                                    <iconify-icon icon="ph:cursor-click" class="text-white"></iconify-icon>
+                                </div>
+                                <div>
+                                    <div class="text-white text-sm font-medium">Cursor IDE</div>
+                                    <div class="text-[10px] text-neutral-500 font-mono uppercase">AI-Native Coding</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 group cursor-pointer">
+                                <div class="w-10 h-10 rounded border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/20 transition-all">
+                                    <iconify-icon icon="simple-icons:anthropic" class="text-[#D97757]"></iconify-icon>
+                                </div>
+                                <div>
+                                    <div class="text-white text-sm font-medium">Claude + Skills</div>
+                                    <div class="text-[10px] text-neutral-500 font-mono uppercase">Custom AI Workflows</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-8">
+                            <button class="shiny-cta" style="--gradient-shine: #22d3ee;">
+                                <span>View Full Stack</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The 3D Wall -->
+                <div class="absolute right-[-10%] md:right-[-5%] top-[-10%] bottom-[-10%] w-[120%] md:w-[70%] wall-container overflow-hidden pointer-events-none md:pointer-events-auto">
+                    <div class="wall-grid h-full w-full flex gap-6 px-10">
+                        <!-- Column 1 (Up) -->
+                        <div class="wall-column wall-column-up flex flex-col gap-6 w-full">
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:figma" width="32" class="text-[#F24E1E]"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Figma</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">+ Make AI</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:anthropic" width="32" class="text-[#D97757]"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Claude</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Anthropic</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="ph:cursor-click-fill" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Cursor</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">AI IDE</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:openai" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">ChatGPT</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">OpenAI</div>
+                                </div>
+                            </div>
+                            <!-- Duplicates -->
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:figma" width="32" class="text-[#F24E1E]"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Figma</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:anthropic" width="32" class="text-[#D97757]"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Claude</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="ph:cursor-click-fill" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Cursor</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:openai" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">ChatGPT</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 (Down) -->
+                        <div class="wall-column wall-column-down flex flex-col gap-6 w-full pt-12">
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:react" width="32" class="text-[#61DAFB]"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">React</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Framework</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:v" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">v0</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Vercel AI</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:framer" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Framer</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">No-Code</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:midjourney" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Midjourney</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Image Gen</div>
+                                </div>
+                            </div>
+                            <!-- Duplicates -->
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:react" width="32" class="text-[#61DAFB]"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">React</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:v" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">v0</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:framer" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Framer</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:midjourney" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Midjourney</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 (Up) - Hidden on smaller screens -->
+                        <div class="wall-column wall-column-up flex flex-col gap-6 w-full pt-24 hidden lg:flex">
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:notion" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Notion</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Docs + AI</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:tailwindcss" width="32" class="text-[#06B6D4]"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">Tailwind</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">CSS</div>
+                                </div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <iconify-icon icon="simple-icons:github" width="32" class="text-white"></iconify-icon>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-mono text-white/80">GitHub</div>
+                                    <div class="text-[9px] font-mono text-neutral-500">Copilot</div>
+                                </div>
+                            </div>
+                            <!-- Duplicates -->
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:notion" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Notion</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:tailwindcss" width="32" class="text-[#06B6D4]"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">Tailwind</div></div>
+                            </div>
+                            <div class="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
+                                <iconify-icon icon="simple-icons:github" width="32" class="text-white"></iconify-icon>
+                                <div><div class="text-sm font-mono text-white/80">GitHub</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Masking gradients -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none opacity-50"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Method Section -->
+        <section id="method" class="border-b border-white/5 bg-black py-32 overflow-hidden">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="text-[10px] font-mono text-neutral-500 uppercase mb-12">03 — Our Method</div>
+
+                <div class="relative mt-20">
+                    <!-- Connection Line -->
+                    <div class="absolute top-[27px] left-0 w-full h-px bg-white/10 z-0"></div>
+                    <div class="absolute top-[27px] left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent z-0 animate-[shimmer_2s_infinite]"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+                        <div class="group hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                            <div class="w-14 h-14 bg-black border border-white/20 rounded-full flex items-center justify-center mb-8 group-hover:border-emerald-500 transition-colors relative">
+                                <span class="text-sm font-mono text-white">01</span>
+                                <div class="absolute inset-0 rounded-full border border-emerald-500/50 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500"></div>
+                            </div>
+                            <h4 class="text-lg text-white font-medium mb-3">Audit</h4>
+                            <p class="text-sm text-neutral-500 leading-relaxed">
+                                We analyze your current workflow, tools, and team structure to identify AI integration opportunities.
+                            </p>
+                        </div>
+
+                        <div class="group hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                            <div class="w-14 h-14 bg-black border border-white/20 rounded-full flex items-center justify-center mb-8 group-hover:border-emerald-500 transition-colors relative">
+                                <span class="text-sm font-mono text-white">02</span>
+                            </div>
+                            <h4 class="text-lg text-white font-medium mb-3">Configure</h4>
+                            <p class="text-sm text-neutral-500 leading-relaxed">
+                                Custom workshop content tailored to your design system, brand guidelines, and tech stack.
+                            </p>
+                        </div>
+
+                        <div class="group hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                            <div class="w-14 h-14 bg-black border border-white/20 rounded-full flex items-center justify-center mb-8 group-hover:border-emerald-500 transition-colors relative">
+                                <span class="text-sm font-mono text-white">03</span>
+                            </div>
+                            <h4 class="text-lg text-white font-medium mb-3">Train</h4>
+                            <p class="text-sm text-neutral-500 leading-relaxed">
+                                Intensive hands-on sessions where your team practices with real projects and actual tools.
+                            </p>
+                        </div>
+
+                        <div class="group hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                            <div class="w-14 h-14 bg-black border border-white/20 rounded-full flex items-center justify-center mb-8 group-hover:border-emerald-500 transition-colors relative">
+                                <span class="text-sm font-mono text-white">04</span>
+                                <div class="absolute w-2 h-2 bg-emerald-500 rounded-full top-0 right-0 animate-pulse"></div>
+                            </div>
+                            <h4 class="text-lg text-white font-medium mb-3">Support</h4>
+                            <p class="text-sm text-neutral-500 leading-relaxed">
+                                30-day post-workshop support to ensure your team successfully integrates new workflows.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="border-b border-white/5 bg-black py-32 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+            <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+                <div class="flex items-end justify-between mb-20">
+                    <div>
+                        <div class="text-[10px] font-mono text-emerald-500 uppercase mb-4 tracking-widest flex items-center gap-2">
+                            <span class="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></span>
+                            Client Intel
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">What Teams Say</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 spotlight-grid">
+                    <div class="spotlight-card p-8 border border-white/5 bg-neutral-900/10 backdrop-blur hover:bg-neutral-900/20 transition-colors relative">
+                        <iconify-icon icon="ph:quotes-fill" class="text-neutral-700 text-3xl mb-4"></iconify-icon>
+                        <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                            "Finally, a workshop that isn't just theory. Our team went from skeptical to shipping AI-assisted designs within a week."
+                        </p>
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">R</div>
+                            <div>
+                                <div class="text-white text-xs font-medium">Design Lead</div>
+                                <div class="text-[10px] text-neutral-500 font-mono">Rubrik</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card p-8 border border-white/5 bg-neutral-900/10 backdrop-blur hover:bg-neutral-900/20 transition-colors relative">
+                        <iconify-icon icon="ph:quotes-fill" class="text-neutral-700 text-3xl mb-4"></iconify-icon>
+                        <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                            "The Figma Make guidelines session alone was worth the entire workshop. Game-changer for maintaining brand consistency."
+                        </p>
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">C</div>
+                            <div>
+                                <div class="text-white text-xs font-medium">VP Design</div>
+                                <div class="text-[10px] text-neutral-500 font-mono">Cellebrite</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card p-8 border border-white/5 bg-neutral-900/10 backdrop-blur hover:bg-neutral-900/20 transition-colors relative">
+                        <iconify-icon icon="ph:quotes-fill" class="text-neutral-700 text-3xl mb-4"></iconify-icon>
+                        <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                            "Daniel has the rare ability to make complex AI concepts accessible. Our entire team of 30 designers is now AI-native."
+                        </p>
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold">W</div>
+                            <div>
+                                <div class="text-white text-xs font-medium">Head of UX</div>
+                                <div class="text-[10px] text-neutral-500 font-mono">WSC Sports</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Daniel -->
+        <section class="border-b border-white/5 bg-black py-32 relative">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="text-[10px] font-mono text-neutral-500 uppercase mb-4">04 — Your Instructor</div>
+                        <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-8">Daniel Boaron</h2>
+                        <p class="text-neutral-400 text-lg leading-relaxed mb-8">
+                            Designer, developer, and founder of Design AI—Israel's leading platform for 
+                            AI integration in design workflows. I've trained 500+ designers across 15+ companies, 
+                            helping teams transform from AI-curious to AI-native.
+                        </p>
+                        <div class="flex flex-wrap gap-4 mb-8">
+                            <div class="px-4 py-2 border border-white/10 rounded bg-white/5">
+                                <div class="text-white text-lg font-medium">7</div>
+                                <div class="text-[10px] text-neutral-500 uppercase">Design AI Conferences</div>
+                            </div>
+                            <div class="px-4 py-2 border border-white/10 rounded bg-white/5">
+                                <div class="text-white text-lg font-medium">500+</div>
+                                <div class="text-[10px] text-neutral-500 uppercase">Designers Trained</div>
+                            </div>
+                            <div class="px-4 py-2 border border-white/10 rounded bg-white/5">
+                                <div class="text-white text-lg font-medium">15+</div>
+                                <div class="text-[10px] text-neutral-500 uppercase">Team Workshops</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+                                <iconify-icon icon="mdi:linkedin" width="24"></iconify-icon>
+                            </a>
+                            <a href="#" class="text-neutral-400 hover:text-white transition-colors">
+                                <iconify-icon icon="mdi:twitter" width="24"></iconify-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-square bg-gradient-to-br from-neutral-900 to-black border border-white/10 rounded-lg overflow-hidden flex items-center justify-center">
+                            <iconify-icon icon="ph:user" width="120" class="text-neutral-800"></iconify-icon>
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 px-4 py-3 bg-black border border-emerald-500/30 rounded-lg backdrop-blur-xl">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                                <span class="text-[10px] font-mono text-emerald-400 uppercase">Design AI 7.0 — March 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="border-b border-white/5 bg-black py-32 relative">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <div class="lg:col-span-4">
+                        <div class="text-[10px] font-mono text-neutral-500 uppercase mb-4">05 — FAQ</div>
+                        <h2 class="text-3xl md:text-4xl text-white font-medium tracking-tight mb-6">
+                            Common<br>Questions
+                        </h2>
+                        <p class="text-sm text-neutral-500 max-w-xs leading-relaxed">
+                            Everything you need to know before booking a workshop.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-8 border-t border-white/10">
+                        <div class="group border-b border-white/10">
+                            <details class="group" open>
+                                <summary class="flex justify-between items-center py-6 cursor-pointer list-none outline-none">
+                                    <span class="text-white font-medium tracking-tight">What's the ideal team size for a workshop?</span>
+                                    <span class="text-neutral-500 font-mono text-xs group-open:rotate-45 transition-transform duration-300">+</span>
+                                </summary>
+                                <div class="pb-6 text-neutral-400 text-sm leading-relaxed max-w-2xl">
+                                    <p>Workshops work best with 5-30 participants. This allows for personalized attention while maintaining group dynamics for collaborative exercises. For larger teams, we recommend multiple sessions.</p>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="group border-b border-white/10">
+                            <details class="group">
+                                <summary class="flex justify-between items-center py-6 cursor-pointer list-none outline-none">
+                                    <span class="text-white font-medium tracking-tight">Do we need any prior AI experience?</span>
+                                    <span class="text-neutral-500 font-mono text-xs group-open:rotate-45 transition-transform duration-300">+</span>
+                                </summary>
+                                <div class="pb-6 text-neutral-400 text-sm leading-relaxed max-w-2xl">
+                                    <p>No. Workshops are designed for all skill levels. We start with fundamentals and progress to advanced workflows. Participants with more experience get challenged with advanced techniques.</p>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="group border-b border-white/10">
+                            <details class="group">
+                                <summary class="flex justify-between items-center py-6 cursor-pointer list-none outline-none">
+                                    <span class="text-white font-medium tracking-tight">Can workshops be delivered remotely?</span>
+                                    <span class="text-neutral-500 font-mono text-xs group-open:rotate-45 transition-transform duration-300">+</span>
+                                </summary>
+                                <div class="pb-6 text-neutral-400 text-sm leading-relaxed max-w-2xl">
+                                    <p>Yes. We offer both on-site and remote workshop options. Remote workshops use interactive tools like FigJam and breakout sessions to maintain engagement.</p>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="group border-b border-white/10">
+                            <details class="group">
+                                <summary class="flex justify-between items-center py-6 cursor-pointer list-none outline-none">
+                                    <span class="text-white font-medium tracking-tight">What's included post-workshop?</span>
+                                    <span class="text-neutral-500 font-mono text-xs group-open:rotate-45 transition-transform duration-300">+</span>
+                                </summary>
+                                <div class="pb-6 text-neutral-400 text-sm leading-relaxed max-w-2xl">
+                                    <p>All participants receive workshop materials, prompt libraries, and 30-day async support via Slack for questions and guidance as they implement new workflows.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video CTA Card -->
+        <section id="contact" class="py-32 bg-black border-b border-white/5 relative">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="relative z-10 w-full bg-black border border-white/10 rounded-3xl overflow-hidden min-h-[600px] flex flex-col items-center justify-center group isolate">
+                    <!-- Background -->
+                    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-600/20 rounded-full blur-[80px] mix-blend-screen animate-pulse duration-[8s]"></div>
+                        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen" style="filter: hue-rotate(120deg) contrast(1.2) saturate(1.2);">
+                            <source src="https://cdn.coverr.co/videos/coverr-digital-lines-moving-background-4770/1080p.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,black_100%)]"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+                        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="relative z-10 flex flex-col items-center text-center p-8 md:p-12 max-w-3xl mx-auto">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 mb-10 border border-emerald-500/20 rounded-full bg-emerald-900/10 backdrop-blur-xl shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span class="text-[10px] font-mono text-emerald-200 uppercase tracking-widest">Now Booking Q1 2026</span>
+                        </div>
+                        <h2 class="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-8 leading-[0.9]">
+                            Ready to<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-emerald-200 to-emerald-400">transform?</span>
+                        </h2>
+                        <p class="text-neutral-400 text-lg font-light leading-relaxed max-w-lg mb-12">
+                            Book a 30-minute call to discuss your team's needs and get a customized workshop proposal.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <button class="shiny-cta">
+                                <span>Book Discovery Call</span>
+                            </button>
+                            
+                            <div class="flex items-center gap-6">
+                                <a href="mailto:daniel@ctrlai.co" class="group text-xs font-mono text-neutral-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
+                                    daniel@ctrlai.co
+                                    <iconify-icon icon="ph:arrow-right" class="group-hover:translate-x-0.5 transition-transform"></iconify-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black pt-32 pb-12 border-t border-white/10">
+            <div class="max-w-[1400px] mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-24">
+                    <div class="text-[15vw] leading-[0.8] font-bold tracking-tighter text-white opacity-90 select-none hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-t hover:from-neutral-800 hover:to-white transition-all duration-700 cursor-default">
+                        CTRL AI
+                    </div>
+                    <div class="flex flex-col gap-4 text-right mb-4">
+                        <a href="#contact" class="text-lg text-neutral-400 hover:text-white transition-colors">
+                            Book a Workshop →
+                        </a>
+                        <div class="text-sm text-neutral-600">Tel Aviv, Israel</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-10">
+                    <div>
+                        <h4 class="text-[10px] font-mono uppercase text-neutral-500 mb-4">Navigation</h4>
+                        <ul class="space-y-2 text-sm text-neutral-400">
+                            <li><a href="#" class="hover:text-white transition-colors">Overview</a></li>
+                            <li><a href="#workshops" class="hover:text-white transition-colors">Workshops</a></li>
+                            <li><a href="#method" class="hover:text-white transition-colors">Method</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-mono uppercase text-neutral-500 mb-4">Connect</h4>
+                        <ul class="space-y-2 text-sm text-neutral-400">
+                            <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Twitter / X</a></li>
+                            <li><a href="https://designai.co.il" class="hover:text-white transition-colors">Design AI</a></li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-2 text-right">
+                        <p class="text-[10px] font-mono uppercase text-neutral-600">
+                            System Status: <span class="text-emerald-500">Online</span>
+                        </p>
+                        <p class="text-[10px] font-mono uppercase text-neutral-600 mt-1">
+                            © 2026 Ctrl AI
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
