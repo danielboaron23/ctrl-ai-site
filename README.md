@@ -1,61 +1,36 @@
-# Ctrl AI Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Premium dark-themed landing page for Ctrl AI - AI workshops for design teams.
+## Getting Started
 
-## 🚀 Live Preview
+First, run the development server:
 
-Simply open `index.html` in your browser, or deploy to GitHub Pages / Vercel / Netlify.
-
-## ✨ Features
-
-- **Premium Dark Aesthetic** - Inspired by high-end tech agency design
-- **Advanced Animations** - Video backgrounds, 3D wall section, spotlight effects
-- **Fully Responsive** - Works on all screen sizes
-- **Single HTML File** - No build process needed
-
-## 🛠 Tech Stack
-
-- HTML5
-- Tailwind CSS (via CDN)
-- Vanilla JavaScript
-- Iconify Icons
-
-## 📝 Customization
-
-### Update Content
-Edit `index.html` directly:
-- Hero text and tagline
-- Workshop descriptions
-- Testimonials
-- Stats numbers
-- Contact information
-
-### Add Your Photo
-Replace the placeholder in the "About Daniel" section with an actual image:
-```html
-<img src="your-photo.jpg" alt="Daniel Boaron" class="w-full h-full object-cover">
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### Add Company Logos
-Replace text in the marquee section with actual logo images.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Update Links
-- LinkedIn URL
-- Twitter URL
-- Email address
-- Design AI conference link
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## 🚀 Deploy
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### GitHub Pages
-1. Push to GitHub
-2. Go to Settings → Pages
-3. Select "main" branch
-4. Your site will be live at `https://yourusername.github.io/ctrl-ai-site`
+## Learn More
 
-### Vercel / Netlify
-Just connect your repo - no configuration needed.
+To learn more about Next.js, take a look at the following resources:
 
-## 📄 License
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-© 2026 Ctrl AI / Daniel Boaron
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
