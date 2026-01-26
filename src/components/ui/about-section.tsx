@@ -60,13 +60,13 @@ export default function AboutSection() {
             </div>
           </div>
           <div className="relative order-1 lg:order-2">
-            <div className="aspect-[4/5] md:aspect-square bg-[#0a0a0a] border border-white/[0.08] rounded-xl overflow-hidden">
+            <div className="rounded-xl overflow-hidden">
               <Image
-                src="/assets/daniel.jpg"
+                src="/assets/daniel.png"
                 alt="Daniel Boaron"
                 width={600}
                 height={600}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
             <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 px-4 py-3 bg-[#030303]/90 border border-accent-500/30 rounded-lg backdrop-blur-xl shadow-lg">

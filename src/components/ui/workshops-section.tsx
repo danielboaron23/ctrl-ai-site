@@ -16,12 +16,11 @@ export default function WorkshopsSection() {
                 01 — Flagship Workshop
               </div>
               <h2 className="text-3xl md:text-4xl font-display text-white tracking-tight">
-                AI for Design Teams
+                Design to Code
               </h2>
             </div>
             <p className="text-sm text-neutral-500 max-w-md leading-relaxed">
-              The comprehensive workshop that transforms your entire design organization into
-              AI-native operators.
+              Bridge the gap between design and development with AI-powered workflows.
             </p>
           </div>
 
@@ -34,7 +33,7 @@ export default function WorkshopsSection() {
                   className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-1000 ease-out"
                   style={{
                     backgroundImage:
-                      "url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=2574&auto=format&fit=crop')",
+                      "url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2574&auto=format&fit=crop')",
                   }}
                 ></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/50 to-transparent lg:bg-gradient-to-r"></div>
@@ -49,11 +48,11 @@ export default function WorkshopsSection() {
                         <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
                       </div>
                       <div className="text-[10px] font-mono text-neutral-500">
-                        Figma_AI_Session.fig
+                        Component.tsx
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-1.5 bg-accent-500/40 rounded w-3/4"></div>
+                      <div className="h-1.5 bg-violet-500/40 rounded w-3/4"></div>
                       <div className="h-1.5 bg-white/10 rounded w-1/2"></div>
                     </div>
                   </div>
@@ -63,27 +62,45 @@ export default function WorkshopsSection() {
               {/* Content Side */}
               <div className="p-6 md:p-10 lg:p-12 flex flex-col justify-between relative">
                 <div className="absolute top-4 right-4 lg:top-6 lg:right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <Icon icon="ph:arrow-up-right" width={28} className="text-accent-400" />
+                  <Icon icon="ph:arrow-up-right" width={28} className="text-violet-400" />
                 </div>
 
                 <div>
                   <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-3 py-1.5 border border-accent-500/30 bg-accent-500/10 text-[10px] font-mono text-accent-400 uppercase rounded-sm">
-                      2-Day Workshop
+                    <span className="px-3 py-1.5 border border-violet-500/30 bg-violet-500/10 text-[10px] font-mono text-violet-400 uppercase rounded-sm">
+                      1-Day Workshop
                     </span>
                     <span className="px-3 py-1.5 border border-white/10 bg-white/5 text-[10px] font-mono text-neutral-400 uppercase rounded-sm">
                       Most Popular
                     </span>
                   </div>
                   <h3 className="text-3xl md:text-4xl lg:text-5xl font-display text-white tracking-tight mb-4 leading-[1.1]">
-                    Transform Your
+                    From Figma
                     <br />
-                    Design Org
+                    to Production
                   </h3>
-                  <p className="text-neutral-400 max-w-md leading-relaxed">
-                    From Figma Make to Claude integration, we build the muscle memory your team
-                    needs to ship 40% faster with AI-native workflows.
+                  <p className="text-neutral-400 max-w-md leading-relaxed mb-6">
+                    Master the full design-to-code pipeline with AI assistance. Learn to export
+                    production-ready React components directly from your Figma designs.
                   </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="text-sm text-neutral-300 flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
+                      Cursor IDE Mastery
+                    </div>
+                    <div className="text-sm text-neutral-300 flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
+                      Figma to React/HTML
+                    </div>
+                    <div className="text-sm text-neutral-300 flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
+                      Claude Skills
+                    </div>
+                    <div className="text-sm text-neutral-300 flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
+                      Production Workflows
+                    </div>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 md:gap-8 border-t border-white/[0.06] pt-6 md:pt-8 mt-8 md:mt-12">
@@ -91,8 +108,8 @@ export default function WorkshopsSection() {
                     <div className="text-[10px] text-neutral-600 uppercase mb-2 tracking-wider">
                       Tools Covered
                     </div>
-                    <div className="text-sm text-white font-mono mb-1">5+ AI Tools</div>
-                    <div className="text-xs text-neutral-500">Figma, Claude, Cursor...</div>
+                    <div className="text-sm text-white font-mono mb-1">4+ AI Tools</div>
+                    <div className="text-xs text-neutral-500">Cursor, Claude, Figma...</div>
                   </div>
                   <div>
                     <div className="text-[10px] text-neutral-600 uppercase mb-2 tracking-wider">
@@ -120,32 +137,32 @@ export default function WorkshopsSection() {
             {/* Workshop Card 1 */}
             <div className="group spotlight-card border border-white/[0.06] p-8 md:p-10 bg-[#0a0a0a]/30 hover:bg-[#0a0a0a]/50 rounded-xl transition-all duration-500 relative overflow-hidden card-lift">
               <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <div className="w-12 h-12 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center group-hover:bg-violet-500/20 transition-colors">
-                  <Icon icon="ph:code" width={24} className="text-violet-400" />
+                <div className="w-12 h-12 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center group-hover:bg-accent-500/20 transition-colors">
+                  <Icon icon="ph:users-three" width={24} className="text-accent-400" />
                 </div>
               </div>
               <div className="mb-8">
-                <h3 className="text-2xl font-display text-white mb-3">Design to Code</h3>
+                <h3 className="text-2xl font-display text-white mb-3">AI for Design Teams</h3>
                 <p className="text-sm text-neutral-500 leading-relaxed">
-                  Bridge the gap between design and development.
+                  Transform your design org with AI-native workflows.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 <div className="text-sm text-neutral-300 flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
-                  Cursor IDE Mastery
+                  <div className="w-1.5 h-1.5 bg-accent-400 rounded-full"></div>
+                  Figma Make Mastery
                 </div>
                 <div className="text-sm text-neutral-300 flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
-                  Figma to React/HTML
+                  <div className="w-1.5 h-1.5 bg-accent-400 rounded-full"></div>
+                  Claude Integration
                 </div>
                 <div className="text-sm text-neutral-300 flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
-                  Claude Skills
+                  <div className="w-1.5 h-1.5 bg-accent-400 rounded-full"></div>
+                  Team Workflows
                 </div>
                 <div className="text-sm text-neutral-300 flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
-                  Production Workflows
+                  <div className="w-1.5 h-1.5 bg-accent-400 rounded-full"></div>
+                  40% Faster Shipping
                 </div>
               </div>
               <button className="btn-secondary w-full justify-center">
