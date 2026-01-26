@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 export default function WorkshopsSection() {
   return (
@@ -165,10 +166,10 @@ export default function WorkshopsSection() {
                   40% Faster Shipping
                 </div>
               </div>
-              <button className="btn-secondary w-full justify-center">
+              <Link href="/workshops/ai-design" className="btn-secondary w-full justify-center">
                 <span>Learn More</span>
                 <Icon icon="ph:arrow-right" width={16} />
-              </button>
+              </Link>
             </div>
 
             {/* Workshop Card 2 */}
@@ -202,10 +203,10 @@ export default function WorkshopsSection() {
                   Brand Consistency
                 </div>
               </div>
-              <button className="btn-secondary w-full justify-center">
+              <Link href="/workshops/ai-brand-language" className="btn-secondary w-full justify-center">
                 <span>Learn More</span>
                 <Icon icon="ph:arrow-right" width={16} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

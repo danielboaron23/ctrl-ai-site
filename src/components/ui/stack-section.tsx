@@ -1,32 +1,45 @@
 "use client";
 
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
-const tools = [
+type Tool = {
+  name: string;
+  subtitle: string;
+  icon?: string;
+  image?: string;
+  color: string;
+};
+
+const tools: Tool[] = [
   { name: "Figma", subtitle: "+ Make AI", icon: "simple-icons:figma", color: "#F24E1E" },
   { name: "Claude", subtitle: "Anthropic", icon: "simple-icons:anthropic", color: "#D97757" },
-  { name: "Cursor", subtitle: "AI IDE", icon: "ph:cursor-click-fill", color: "white" },
+  { name: "Cursor", subtitle: "AI IDE", image: "/assets/logos/cursor.png", color: "white" },
   { name: "ChatGPT", subtitle: "OpenAI", icon: "simple-icons:openai", color: "white" },
 ];
 
-const tools2 = [
+const tools2: Tool[] = [
   { name: "React", subtitle: "Framework", icon: "simple-icons:react", color: "#61DAFB" },
-  { name: "v0", subtitle: "Vercel AI", icon: "simple-icons:v", color: "white" },
-  { name: "Framer", subtitle: "No-Code", icon: "simple-icons:framer", color: "white" },
-  { name: "Midjourney", subtitle: "Image Gen", icon: "simple-icons:midjourney", color: "white" },
+  { name: "Cursor", subtitle: "AI IDE", image: "/assets/logos/cursor.png", color: "white" },
+  { name: "Figma", subtitle: "Design", icon: "simple-icons:figma", color: "#F24E1E" },
+  { name: "Claude", subtitle: "Anthropic", icon: "simple-icons:anthropic", color: "#D97757" },
 ];
 
-const tools3 = [
+const tools3: Tool[] = [
   { name: "Notion", subtitle: "Docs + AI", icon: "simple-icons:notion", color: "white" },
   { name: "Tailwind", subtitle: "CSS", icon: "simple-icons:tailwindcss", color: "#06B6D4" },
   { name: "GitHub", subtitle: "Copilot", icon: "simple-icons:github", color: "white" },
 ];
 
-function WallCard({ name, subtitle, icon, color }: { name: string; subtitle: string; icon: string; color: string }) {
+function WallCard({ name, subtitle, icon, image, color }: Tool) {
   return (
     <div className="wall-card rounded-xl p-6 aspect-[4/3] flex flex-col justify-between">
       <div className="flex justify-between items-start">
-        <Icon icon={icon} width={32} style={{ color }} />
+        {image ? (
+          <Image src={image} alt={name} width={32} height={32} className="object-contain" />
+        ) : icon ? (
+          <Icon icon={icon} width={32} style={{ color }} />
+        ) : null}
         <div className="w-1.5 h-1.5 rounded-full bg-accent-400 shadow-[0_0_10px_rgba(167,139,250,0.6)]"></div>
       </div>
       <div>
@@ -75,7 +88,7 @@ export default function StackSection() {
               </div>
               <div className="flex items-center gap-4 group cursor-pointer p-3 -ml-3 rounded-lg hover:bg-white/[0.03] transition-colors">
                 <div className="w-11 h-11 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-accent-500/30 transition-all">
-                  <Icon icon="ph:cursor-click-fill" width={20} className="text-white" />
+                  <Image src="/assets/logos/cursor-logo.svg" alt="Cursor" width={20} height={20} />
                 </div>
                 <div>
                   <div className="text-white text-sm font-medium">Cursor IDE</div>

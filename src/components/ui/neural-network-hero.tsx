@@ -401,7 +401,7 @@ export default function NeuralNetworkHero({
           <div className="overflow-hidden marquee-wrapper">
             <div className="marquee-content opacity-60 hover:opacity-80 transition-all duration-500 items-center">
               {logos.map((company) => (
-                <div key={company.name} className="flex-shrink-0 px-6">
+                <div key={company.name} className="flex-shrink-0 px-3">
                   <img
                     src={company.logo}
                     alt={`${company.name} logo`}
@@ -410,7 +410,7 @@ export default function NeuralNetworkHero({
                 </div>
               ))}
               {logos.map((company) => (
-                <div key={`dup-${company.name}`} className="flex-shrink-0 px-6">
+                <div key={`dup-${company.name}`} className="flex-shrink-0 px-3">
                   <img
                     src={company.logo}
                     alt={`${company.name} logo`}
