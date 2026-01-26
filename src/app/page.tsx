@@ -1,6 +1,5 @@
 import NeuralNetworkHero from "@/components/ui/neural-network-hero";
 import Navigation from "@/components/ui/navigation";
-import LogoStrip from "@/components/ui/logo-strip";
 import ImpactStats from "@/components/ui/impact-stats";
 import WorkshopsSection from "@/components/ui/workshops-section";
 import StackSection from "@/components/ui/stack-section";
@@ -54,9 +53,6 @@ export default function Home() {
         />
 
         <div className="relative z-10 bg-[#030303]">
-          <Divider />
-          <LogoStrip />
-
           <ImpactStats />
           <Divider />
 

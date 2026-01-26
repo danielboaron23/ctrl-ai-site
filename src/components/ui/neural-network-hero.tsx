@@ -10,6 +10,26 @@ import gsap from 'gsap';
 
 gsap.registerPlugin(useGSAP);
 
+// ===================== LOGOS =====================
+const logos = [
+  { name: "Rubrik", logo: "/assets/logos/rubrik.png", invert: true },
+  { name: "CATO", logo: "/assets/logos/cato.png", invert: true },
+  { name: "Cellebrite", logo: "/assets/logos/cellebrite.png", invert: true },
+  { name: "Storeal", logo: "/assets/logos/storeal.png", invert: true },
+  { name: "Remitly", logo: "/assets/logos/remitly.png", invert: true },
+  { name: "Balance", logo: "/assets/logos/balance.webp", invert: true },
+  { name: "Siemens", logo: "/assets/logos/siemens.svg", invert: true },
+  { name: "Anima", logo: "/assets/logos/anima.png", invert: true },
+  { name: "Nanit", logo: "/assets/logos/nanit.png", invert: true },
+  { name: "Myop", logo: "/assets/logos/myop.png", invert: true },
+  { name: "Radware", logo: "/assets/logos/radware.png", invert: true },
+  { name: "Natural Intelligence", logo: "/assets/logos/natural-intelligence.png", invert: true },
+  { name: "Optibus", logo: "/assets/logos/optibus.svg", invert: true },
+  { name: "Intuit", logo: "/assets/logos/intuit.png", invert: true },
+  { name: "TravelBooster", logo: "/assets/logos/travelbooster.png", invert: true },
+  { name: "WSC Sports", logo: "/assets/logos/wsc-sports.svg", invert: true },
+];
+
 // ===================== SHADER =====================
 const vertexShader = `
   varying vec2 vUv;
@@ -330,14 +350,14 @@ export default function NeuralNetworkHero({
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
       <ShaderBackground />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-6 px-6 pb-24 pt-36 sm:gap-8 sm:pt-44 md:px-10 lg:px-16">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-5 px-6 pb-8 pt-28 sm:gap-6 sm:pt-36 md:px-10 lg:px-16">
         <div ref={badgeRef} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-sm">
           <span className="text-[10px] font-light uppercase tracking-[0.08em] text-white/70">{badgeLabel}</span>
           <span className="h-1 w-1 rounded-full bg-white/40" />
           <span className="text-xs font-light tracking-tight text-white/80">{badgeText}</span>
         </div>
 
-        <h1 className="max-w-2xl text-left text-5xl font-extralight leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl">
+        <h1 className="max-w-2xl text-left text-4xl font-extralight leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
           {titleLines.map((line, index) => (
             <AnimatedLine key={index} delay={0.1 + index * 0.15}>
               {line}
@@ -345,16 +365,16 @@ export default function NeuralNetworkHero({
           ))}
         </h1>
 
-        <p ref={paraRef} className="max-w-xl text-left text-base font-light leading-relaxed tracking-tight text-white/75 sm:text-lg">
+        <p ref={paraRef} className="max-w-xl text-left text-sm font-light leading-relaxed tracking-tight text-white/75 sm:text-base md:text-lg">
           {description}
         </p>
 
-        <div ref={ctaRef} className="flex flex-wrap items-center gap-3 pt-2">
+        <div ref={ctaRef} className="flex flex-wrap items-center gap-3 pt-1">
           {ctaButtons.map((button, index) => (
             <a
               key={index}
               href={button.href}
-              className={`rounded-2xl border border-white/10 px-5 py-3 text-sm font-light tracking-tight transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 duration-300 ${
+              className={`rounded-2xl border border-white/10 px-5 py-2.5 text-sm font-light tracking-tight transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 duration-300 ${
                 button.primary
                   ? "bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
                   : "text-white/80 hover:bg-white/5"
@@ -365,16 +385,45 @@ export default function NeuralNetworkHero({
           ))}
         </div>
 
-        <ul ref={microRef} className="mt-8 flex flex-wrap gap-6 text-xs font-extralight tracking-tight text-white/60">
+        <ul ref={microRef} className="mt-4 flex flex-wrap gap-6 text-xs font-extralight tracking-tight text-white/60">
           {microDetails.map((detail, index) => (
             <li key={index} className="flex items-center gap-2">
               <span className="h-1 w-1 rounded-full bg-white/40" /> {detail}
             </li>
           ))}
         </ul>
+
+        {/* Logo Strip */}
+        <div className="w-full mt-6 pt-6 border-t border-white/[0.06]">
+          <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mb-4">
+            Trusted by leading teams
+          </p>
+          <div className="overflow-hidden marquee-wrapper">
+            <div className="marquee-content opacity-60 hover:opacity-80 transition-all duration-500 items-center">
+              {logos.map((company) => (
+                <div key={company.name} className="flex-shrink-0 px-6">
+                  <img
+                    src={company.logo}
+                    alt={`${company.name} logo`}
+                    className={`h-6 w-auto object-contain ${company.invert ? 'brightness-0 invert' : ''}`}
+                  />
+                </div>
+              ))}
+              {logos.map((company) => (
+                <div key={`dup-${company.name}`} className="flex-shrink-0 px-6">
+                  <img
+                    src={company.logo}
+                    alt={`${company.name} logo`}
+                    className={`h-6 w-auto object-contain ${company.invert ? 'brightness-0 invert' : ''}`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
     </section>
   );
 }
