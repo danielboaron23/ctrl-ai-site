@@ -2,7 +2,6 @@
 
 import { Icon } from "@iconify/react";
 import Image from "next/image";
-import { useLanguage } from "@/lib/i18n";
 
 type Tool = {
   name: string;
@@ -52,73 +51,60 @@ function WallCard({ name, subtitle, icon, image, color }: Tool) {
 }
 
 export default function StackSection() {
-  const { t, isRTL } = useLanguage();
-
   return (
     <section className="relative overflow-hidden py-20 md:py-0">
-      <div className={`absolute ${isRTL ? 'left-0' : 'right-0'} top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/10 blur-[150px] rounded-full pointer-events-none z-0`}></div>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
 
       <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col md:flex-row min-h-[700px] md:min-h-[900px]">
-        <div className={`w-full md:w-[45%] px-4 md:px-6 py-12 md:py-32 flex flex-col justify-center relative z-20 ${isRTL ? 'bg-gradient-to-l md:order-2' : 'bg-gradient-to-r'} from-[#030303] via-[#030303] to-transparent`}>
+        <div className="w-full md:w-[45%] px-4 md:px-6 py-12 md:py-32 flex flex-col justify-center relative z-20 bg-gradient-to-r from-[#030303] via-[#030303] to-transparent">
           <div className="inline-flex items-center gap-2 text-[10px] font-mono text-accent-500 uppercase tracking-widest mb-6">
             <span className="w-8 h-px bg-accent-500"></span>
-            {isRTL ? 'הכלים' : 'The Stack'}
+            The Stack
           </div>
 
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display tracking-tight text-white mb-8 leading-[0.95]">
-            {isRTL ? (
-              <>
-                הכלים
-                <br />
-                <span className="gradient-text-accent italic">שלנו.</span>
-              </>
-            ) : (
-              <>
-                Tools We
-                <br />
-                <span className="gradient-text-accent italic">Master.</span>
-              </>
-            )}
+            Tools We
+            <br />
+            <span className="gradient-text-accent italic">Master.</span>
           </h2>
 
           <div className="space-y-8 max-w-md">
             <p className="text-neutral-400 text-base md:text-lg font-light leading-relaxed">
-              {isRTL
-                ? 'אנחנו לא מלמדים תיאוריה. אנחנו מאמנים על הכלים המדויקים שהצוות שלכם ישתמש בהם כל יום. כל סדנה מותאמת אישית לסטאק שלכם.'
-                : "We don't teach theory. We train on the exact tools your team will use every day. Each workshop is customized to your stack."}
+              We don&apos;t teach theory. We train on the exact tools your team will use every day.
+              Each workshop is customized to your stack.
             </p>
 
             <div className="flex flex-col gap-4">
-              <div className={`flex items-center gap-4 group cursor-pointer p-3 ${isRTL ? '-mr-3' : '-ml-3'} rounded-lg hover:bg-white/[0.03] transition-colors`}>
+              <div className="flex items-center gap-4 group cursor-pointer p-3 -ml-3 rounded-lg hover:bg-white/[0.03] transition-colors">
                 <div className="w-11 h-11 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-accent-500/30 transition-all">
                   <Icon icon="simple-icons:figma" width={20} style={{ color: "#F24E1E" }} />
                 </div>
                 <div>
                   <div className="text-white text-sm font-medium">Figma + Make</div>
                   <div className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">
-                    {isRTL ? 'עיצוב מונחה AI' : 'AI-Powered Design'}
+                    AI-Powered Design
                   </div>
                 </div>
               </div>
-              <div className={`flex items-center gap-4 group cursor-pointer p-3 ${isRTL ? '-mr-3' : '-ml-3'} rounded-lg hover:bg-white/[0.03] transition-colors`}>
+              <div className="flex items-center gap-4 group cursor-pointer p-3 -ml-3 rounded-lg hover:bg-white/[0.03] transition-colors">
                 <div className="w-11 h-11 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-accent-500/30 transition-all">
                   <Image src="/assets/logos/cursor-logo.svg" alt="Cursor" width={20} height={20} />
                 </div>
                 <div>
                   <div className="text-white text-sm font-medium">Cursor IDE</div>
                   <div className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">
-                    {isRTL ? 'קידוד מונחה AI' : 'AI-Native Coding'}
+                    AI-Native Coding
                   </div>
                 </div>
               </div>
-              <div className={`flex items-center gap-4 group cursor-pointer p-3 ${isRTL ? '-mr-3' : '-ml-3'} rounded-lg hover:bg-white/[0.03] transition-colors`}>
+              <div className="flex items-center gap-4 group cursor-pointer p-3 -ml-3 rounded-lg hover:bg-white/[0.03] transition-colors">
                 <div className="w-11 h-11 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-accent-500/30 transition-all">
                   <Icon icon="simple-icons:anthropic" width={20} style={{ color: "#D97757" }} />
                 </div>
                 <div>
                   <div className="text-white text-sm font-medium">Claude + Skills</div>
                   <div className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">
-                    {isRTL ? 'תהליכי AI מותאמים' : 'Custom AI Workflows'}
+                    Custom AI Workflows
                   </div>
                 </div>
               </div>
@@ -126,7 +112,7 @@ export default function StackSection() {
 
             <div className="pt-6">
               <button className="shiny-cta">
-                <span>{isRTL ? 'צפו בכל הכלים' : 'View Full Stack'}</span>
+                <span>View Full Stack</span>
               </button>
             </div>
           </div>

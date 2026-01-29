@@ -2,11 +2,8 @@
 
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useLanguage } from "@/lib/i18n";
 
 export default function CTASection() {
-  const { t, isRTL } = useLanguage();
-
   return (
     <section id="contact" className="py-20 md:py-32 relative">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6">
@@ -14,7 +11,7 @@ export default function CTASection() {
           {/* Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-accent-600/15 rounded-full blur-[100px]"></div>
-            <div className={`absolute bottom-0 ${isRTL ? 'right-1/4' : 'left-1/4'} w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[80px]`}></div>
+            <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[80px]"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(3,3,3,0.9)_100%)]"></div>
           </div>
 
@@ -26,34 +23,23 @@ export default function CTASection() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
               </span>
               <span className="text-[10px] font-mono text-accent-300 uppercase tracking-widest">
-                {isRTL ? 'מקבלים הזמנות לQ1 2026' : 'Now Booking Q1 2026'}
+                Now Booking Q1 2026
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-display tracking-tight text-white mb-6 md:mb-8 leading-[0.95]">
-              {isRTL ? (
-                <>
-                  מוכנים
-                  <br />
-                  <span className="gradient-text-accent italic">לשינוי?</span>
-                </>
-              ) : (
-                <>
-                  Ready to
-                  <br />
-                  <span className="gradient-text-accent italic">transform?</span>
-                </>
-              )}
+              Ready to
+              <br />
+              <span className="gradient-text-accent italic">transform?</span>
             </h2>
             <p className="text-neutral-400 text-base md:text-lg font-light leading-relaxed max-w-lg mb-10 md:mb-12">
-              {isRTL
-                ? 'קבעו שיחה של 30 דקות כדי לדון בצרכים של הצוות שלכם ולקבל הצעת סדנה מותאמת אישית.'
-                : "Book a 30-minute call to discuss your team's needs and get a customized workshop proposal."}
+              Book a 30-minute call to discuss your team&apos;s needs and get a customized workshop
+              proposal.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <button className="btn-primary text-sm px-8 py-4">
-                <span>{t.cta.button}</span>
-                <Icon icon={isRTL ? "ph:arrow-left" : "ph:arrow-right"} width={18} />
+                <span>Book Discovery Call</span>
+                <Icon icon="ph:arrow-right" width={18} />
               </button>
 
               <Link
@@ -62,8 +48,8 @@ export default function CTASection() {
               >
                 daniel@ctrlai.co
                 <Icon
-                  icon={isRTL ? "ph:arrow-up-left" : "ph:arrow-up-right"}
-                  className={`transition-transform ${isRTL ? 'group-hover:-translate-x-0.5 group-hover:-translate-y-0.5' : 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5'}`}
+                  icon="ph:arrow-up-right"
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                   width={14}
                 />
               </Link>
