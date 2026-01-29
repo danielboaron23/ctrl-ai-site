@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
+import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -40,7 +41,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${outfit.className} antialiased bg-[#030303] text-white`}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

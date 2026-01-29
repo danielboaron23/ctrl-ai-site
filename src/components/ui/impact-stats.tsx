@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 interface StatProps {
   value: number;
@@ -55,14 +56,22 @@ function StatCard({ value, suffix, label }: StatProps) {
 }
 
 export default function ImpactStats() {
+  const { t, isRTL } = useLanguage();
+
+  const stats = [
+    { value: 15, suffix: "+", label: t.stats.teamsTrainedLabel },
+    { value: 500, suffix: "+", label: t.stats.designersSkilledLabel },
+    { value: 40, suffix: "%", label: t.stats.timeSavedLabel },
+    { value: 7, suffix: "", label: isRTL ? "כנסים אורגנו" : "Conferences Hosted" },
+  ];
+
   return (
     <section className="py-16 md:py-20">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          <StatCard value={15} suffix="+" label="Teams Trained" />
-          <StatCard value={500} suffix="+" label="Designers Skilled" />
-          <StatCard value={40} suffix="%" label="Avg. Time Saved" />
-          <StatCard value={7} suffix="" label="Conferences Hosted" />
+          {stats.map((stat, index) => (
+            <StatCard key={index} {...stat} />
+          ))}
         </div>
       </div>
     </section>
