@@ -2,13 +2,32 @@
 
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import { useLanguage } from "@/lib/i18n";
+
+const faqs = [
+  {
+    question: "What's the ideal team size for a workshop?",
+    answer:
+      "Workshops work best with 5-30 participants. This allows for personalized attention while maintaining group dynamics for collaborative exercises. For larger teams, we recommend multiple sessions.",
+  },
+  {
+    question: "Do we need any prior AI experience?",
+    answer:
+      "No. Workshops are designed for all skill levels. We start with fundamentals and progress to advanced workflows. Participants with more experience get challenged with advanced techniques.",
+  },
+  {
+    question: "Can workshops be delivered remotely?",
+    answer:
+      "Yes. We offer both on-site and remote workshop options. Remote workshops use interactive tools like FigJam and breakout sessions to maintain engagement.",
+  },
+  {
+    question: "What's included post-workshop?",
+    answer:
+      "All participants receive workshop materials, prompt libraries, and 30-day async support via Slack for questions and guidance as they implement new workflows.",
+  },
+];
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
-  const { t, isRTL } = useLanguage();
-
-  const faqs = t.faq.items;
 
   return (
     <section className="py-24 md:py-32 relative">
@@ -17,25 +36,15 @@ export default function FAQSection() {
           <div className="lg:col-span-4">
             <div className="inline-flex items-center gap-2 text-[10px] font-mono text-accent-500 uppercase tracking-widest mb-6">
               <span className="w-8 h-px bg-accent-500"></span>
-              {isRTL ? '05 — שאלות נפוצות' : '05 — FAQ'}
+              05 — FAQ
             </div>
             <h2 className="text-3xl md:text-4xl font-display text-white tracking-tight mb-4">
-              {isRTL ? (
-                <>
-                  שאלות
-                  <br />
-                  נפוצות
-                </>
-              ) : (
-                <>
-                  Common
-                  <br />
-                  Questions
-                </>
-              )}
+              Common
+              <br />
+              Questions
             </h2>
             <p className="text-sm text-neutral-500 max-w-xs leading-relaxed">
-              {t.faq.subtitle}
+              Everything you need to know before booking a workshop.
             </p>
           </div>
           <div className="lg:col-span-8">
@@ -43,10 +52,10 @@ export default function FAQSection() {
               {faqs.map((faq, index) => (
                 <div key={index} className="border-b border-white/[0.08]">
                   <button
-                    className={`flex justify-between items-center py-5 md:py-6 cursor-pointer w-full ${isRTL ? 'text-right' : 'text-left'}`}
+                    className="flex justify-between items-center py-5 md:py-6 cursor-pointer w-full text-left"
                     onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
                   >
-                    <span className={`text-white font-medium tracking-tight ${isRTL ? 'pl-4' : 'pr-4'}`}>
+                    <span className="text-white font-medium tracking-tight pr-4">
                       {faq.question}
                     </span>
                     <span
