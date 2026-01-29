@@ -3,169 +3,25 @@
 import React from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n";
 
-const testimonials = [
-  {
-    quote:
-      "Thanks for this amazing workshop! It truly opened our eyes and inspired the team to explore new ideas. Daniel's approach made complex AI concepts accessible and immediately applicable to our daily work.",
-    name: "Oded Klimer",
-    role: "Chief of Design",
-    company: "Rubrik",
-    logo: "/assets/logos/rubrik.png",
-    avatar: "/assets/avatars/oded-klimer.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "A huge shoutout to Daniel Boaron for his insightful guidance! He crafted a workshop perfectly suited to our team's needs, showcasing the future of design with AI. His deep expertise made it both inspiring and actionable for everyone.",
-    name: "Gili Boker",
-    role: "Director of Product Design",
-    company: "CATO",
-    logo: "/assets/logos/cato.png",
-    avatar: "/assets/avatars/gili-boker.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "A big thank you to Daniel Boaron for his expertise and inspiring facilitation. He designed the experience from the ground up, filled it with creativity, and guided us with positivity. A true expert!",
-    name: "Yehuda Levy",
-    role: "UI/UX Director",
-    company: "Cellebrite",
-    logo: "/assets/logos/cellebrite.png",
-    avatar: "/assets/avatars/yehuda-levy.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Working with Daniel was exceptional. He created a focused, practical workshop tailored to our company's needs, addressing our workflows and real challenges. His approach helped the entire organization aiming to enhance its design and AI capabilities.",
-    name: "Tali Bar David",
-    role: "VP Product",
-    company: "Storeal",
-    logo: "/assets/logos/storeal.png",
-    avatar: "/assets/avatars/tali-bar-david.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "I highly recommend Daniel for anyone wanting to boost their AI skills. He conducted an impactful workshop for our marketing team, showcasing new tools and practical applications. His approach left a lasting impression.",
-    name: "Shenhav Yehuda Goren",
-    role: "Director of Marketing",
-    company: "Remitly",
-    logo: "/assets/logos/remitly.png",
-    avatar: "/assets/avatars/shenhav-yehuda-goren.png",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel's preparation was exceptional. He delivered deep expertise that translated into actionable insights our team uses daily. His meticulous attention to detail and strategic approach left us equipped with practical tools we implemented immediately.",
-    name: "Nir Gazit",
-    role: "VP of Product",
-    company: "Balance",
-    logo: "/assets/logos/balance.webp",
-    avatar: "/assets/avatars/nir-gazit.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "An enlightening workshop that transforms AI from a buzzword into practical use. Daniel simplifies complex tools, making them relevant and immediately beneficial for every designer.",
-    name: "Varda Senerman",
-    role: "Lead UX Designer",
-    company: "Siemens",
-    logo: "/assets/logos/siemens.svg",
-    avatar: "/assets/avatars/varda-senerman.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "We had a fantastic workshop with Daniel. His expertise in market dynamics and the interplay between product, design, and code made it truly valuable. The session was tailored to each organization's needs, and I highly recommend it!",
-    name: "Michal Cohen",
-    role: "Co-founder",
-    company: "Anima",
-    logo: "/assets/logos/anima.png",
-    avatar: "/assets/avatars/michal-cohen.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel customized the workshop to meet our needs perfectly it helped us create new designs that align with our brand and significantly enhanced our workflow.",
-    name: "Barak Alon",
-    role: "Director of Product",
-    company: "Nanit",
-    logo: "/assets/logos/nanit.png",
-    avatar: "/assets/avatars/barak-alon.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "We had a workshop with Daniel that was concise and impactful, bridging design, product, and AI. His sharp insights and hands-on approach made it incredibly valuable for our team.",
-    name: "Keren Fanan",
-    role: "Co-Founder & CEO",
-    company: "Myop",
-    logo: "/assets/logos/myop.png",
-    avatar: "/assets/avatars/keren-fanan.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel delivered the workshop with comprehensive preparation that met our real-world needs. His strategic approach and hands-on methods left our team empowered and ready to implement.",
-    name: "Liora Breitman",
-    role: "Director of Product Design",
-    company: "Radware",
-    logo: "/assets/logos/radware.png",
-    avatar: "/assets/avatars/liora-breitman.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel tailored the workshop perfectly to our needs. His strategic thinking combined with hands-on execution made it incredibly valuable. We left with clear next steps and actionable insights.",
-    name: "Yaron Yativ",
-    role: "Product Design Director",
-    company: "Natural Intelligence",
-    logo: "/assets/logos/natural-intelligence.png",
-    avatar: "/assets/avatars/yaron-yativ.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel Boaron brought exceptional energy and deep expertise in AI for design. His ability to bridge design, product, and technology turned the workshop into a real catalyst helping our team adopt AI not to work faster, but to work smarter.",
-    name: "Yair Golan",
-    role: "UX Director",
-    company: "Optibus",
-    logo: "/assets/logos/optibus.svg",
-    avatar: "/assets/avatars/yair-golan.png",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel helped our designers move from experimenting with AI to using it with intention. The workshop created clarity, focus, and a shared language across design, product, and tech with immediate impact on how we work.",
-    name: "Martin Friedmann",
-    role: "Senior Staff Product Designer",
-    company: "Intuit",
-    logo: "/assets/logos/intuit.png",
-    avatar: "/assets/avatars/martin-friedmann.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "Daniel's workshop gave our team clear, usable methods for integrating AI into everyday design work. Instead of abstract concepts, we walked away with practical workflows that improved focus and collaboration.",
-    name: "Ben Ganon",
-    role: "Product Designer",
-    company: "TravelBooster",
-    logo: "/assets/logos/travelbooster.png",
-    avatar: "/assets/avatars/ben-ganon.jpeg",
-    invertLogo: true,
-  },
-  {
-    quote:
-      "The workshop with Daniel was eye-opening. He brought fresh perspectives on how AI can enhance our design process, making it more efficient and creative at the same time.",
-    name: "Einav Kivshany",
-    role: "Product Designer",
-    company: "WSC Sports",
-    logo: "/assets/logos/wsc-sports.svg",
-    avatar: "/assets/avatars/einav-kivshany.jpeg",
-    invertLogo: false,
-    largerLogo: true,
-  },
+const testimonialMeta = [
+  { logo: "/assets/logos/rubrik.png", avatar: "/assets/avatars/oded-klimer.jpeg", invertLogo: true },
+  { logo: "/assets/logos/cato.png", avatar: "/assets/avatars/gili-boker.jpeg", invertLogo: true },
+  { logo: "/assets/logos/cellebrite.png", avatar: "/assets/avatars/yehuda-levy.jpeg", invertLogo: true },
+  { logo: "/assets/logos/storeal.png", avatar: "/assets/avatars/tali-bar-david.jpeg", invertLogo: true },
+  { logo: "/assets/logos/remitly.png", avatar: "/assets/avatars/shenhav-yehuda-goren.png", invertLogo: true },
+  { logo: "/assets/logos/balance.webp", avatar: "/assets/avatars/nir-gazit.jpeg", invertLogo: true },
+  { logo: "/assets/logos/siemens.svg", avatar: "/assets/avatars/varda-senerman.jpeg", invertLogo: true },
+  { logo: "/assets/logos/anima.png", avatar: "/assets/avatars/michal-cohen.jpeg", invertLogo: true },
+  { logo: "/assets/logos/nanit.png", avatar: "/assets/avatars/barak-alon.jpeg", invertLogo: true },
+  { logo: "/assets/logos/myop.png", avatar: "/assets/avatars/keren-fanan.jpeg", invertLogo: true },
+  { logo: "/assets/logos/radware.png", avatar: "/assets/avatars/liora-breitman.jpeg", invertLogo: true },
+  { logo: "/assets/logos/natural-intelligence.png", avatar: "/assets/avatars/yaron-yativ.jpeg", invertLogo: true },
+  { logo: "/assets/logos/optibus.svg", avatar: "/assets/avatars/yair-golan.png", invertLogo: true },
+  { logo: "/assets/logos/intuit.png", avatar: "/assets/avatars/martin-friedmann.jpeg", invertLogo: true },
+  { logo: "/assets/logos/travelbooster.png", avatar: "/assets/avatars/ben-ganon.jpeg", invertLogo: true },
+  { logo: "/assets/logos/wsc-sports.svg", avatar: "/assets/avatars/einav-kivshany.jpeg", invertLogo: false, largerLogo: true },
 ];
 
 function VerifiedBadge() {
@@ -177,7 +33,21 @@ function VerifiedBadge() {
   );
 }
 
-type Testimonial = typeof testimonials[number];
+type TestimonialData = {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+};
+
+type TestimonialMeta = {
+  logo: string;
+  avatar: string;
+  invertLogo: boolean;
+  largerLogo?: boolean;
+};
+
+type Testimonial = TestimonialData & TestimonialMeta;
 
 const TestimonialsColumn = ({
   className,
@@ -253,12 +123,20 @@ const TestimonialsColumn = ({
   );
 };
 
-// Split testimonials into columns
-const firstColumn = testimonials.slice(0, 6);
-const secondColumn = testimonials.slice(6, 11);
-const thirdColumn = testimonials.slice(11, 16);
-
 export default function TestimonialsSection() {
+  const { t, isRTL } = useLanguage();
+
+  // Combine translation data with meta data
+  const testimonials: Testimonial[] = t.testimonialsData.map((data, index) => ({
+    ...data,
+    ...testimonialMeta[index],
+  }));
+
+  // Split testimonials into columns
+  const firstColumn = testimonials.slice(0, 6);
+  const secondColumn = testimonials.slice(6, 11);
+  const thirdColumn = testimonials.slice(11, 16);
+
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6 relative z-10">
@@ -272,10 +150,10 @@ export default function TestimonialsSection() {
           <div>
             <div className="inline-flex items-center gap-2 text-[10px] font-mono text-accent-500 uppercase tracking-widest mb-4">
               <span className="w-8 h-px bg-accent-500"></span>
-              Client Intel
+              {isRTL ? 'המלצות' : 'Client Intel'}
             </div>
             <h2 className="text-3xl md:text-4xl font-display tracking-tight text-white">
-              What Teams Say
+              {t.testimonials.title}
             </h2>
           </div>
         </motion.div>
